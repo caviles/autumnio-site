@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Autumnio Games</title>
+<meta name="description" content="Autumnio Games makes original Roblox games: Fare Frenzy, an arcade taxi rush, and Sprout Isle, a cozy island garden.">
+<meta property="og:title" content="Autumnio Games">
+<meta property="og:description" content="Original Roblox games: Fare Frenzy and Sprout Isle.">
+<meta property="og:image" content="img/downtown-stunt-park-night.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath d='M32 4C18 18 12 30 16 44c3 9 10 14 16 16 6-2 13-7 16-16C52 30 46 18 32 4z' fill='%23e0662f'/%3E%3Cpath d='M32 14v46' stroke='%237a2e12' stroke-width='3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fff8f0;
+    --bg-alt: #fbead8;
+    --ink: #2b1a12;
+    --ink-soft: #6b5144;
+    --leaf: #e0662f;
+    --leaf-deep: #b8461a;
+    --gold: #f2a93b;
+    --card: #ffffff;
+    --line: #f0d9c4;
+    --taxi: #ffc21a;
+    --neon: #c63dff;
+    --sprout: #4fa35b;
+    --sprout-soft: #e5f4dc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1a120e;
+      --bg-alt: #241812;
+      --ink: #fbefe4;
+      --ink-soft: #c9ae9c;
+      --card: #2a1d16;
+      --line: #3d2a20;
+      --sprout-soft: #1f3020;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 17px/1.6 "Nunito", system-ui, sans-serif;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  h1, h2, h3 { font-family: "Fredoka", "Nunito", sans-serif; line-height: 1.1; margin: 0; }
+  .wrap { width: min(1120px, 100% - 32px); margin-inline: auto; }
+
+  /* Nav */
+  nav { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; font: 700 22px "Fredoka", sans-serif; text-decoration: none; }
+  .brand svg { width: 30px; height: 30px; }
+  nav ul { display: flex; gap: 24px; list-style: none; margin: 0; padding: 0; font-weight: 700; }
+  nav ul a { text-decoration: none; color: var(--ink-soft); }
+  nav ul a:hover { color: var(--leaf); }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; padding: 88px 0 96px; background: radial-gradient(1200px 500px at 85% -10%, #ffd9a8 0%, transparent 60%), var(--bg); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .hero { background: radial-gradient(1200px 500px at 85% -10%, #4a2a16 0%, transparent 60%), var(--bg); } }
+  .hero .wrap { position: relative; z-index: 1; max-width: 760px; text-align: center; }
+  .eyebrow { display: inline-block; padding: 6px 14px; border-radius: 999px; background: var(--bg-alt); color: var(--leaf-deep); font-weight: 800; font-size: 14px; letter-spacing: .04em; text-transform: uppercase; }
+  .hero h1 { font-size: clamp(40px, 7vw, 72px); margin: 18px 0 16px; }
+  .hero h1 span { color: var(--leaf); }
+  .hero p { font-size: 20px; color: var(--ink-soft); margin: 0 auto 32px; max-width: 600px; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; border-radius: 14px; font-weight: 800; text-decoration: none; border: 0; cursor: pointer; transition: transform .15s; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--leaf); color: #fff; box-shadow: 0 6px 0 var(--leaf-deep); }
+  .btn-ghost { background: var(--card); border: 2px solid var(--line); color: var(--ink); }
+  .btn-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .leaf { position: absolute; opacity: .9; animation: fall linear infinite; }
+  @keyframes fall { from { transform: translateY(-80px) rotate(0); } to { transform: translateY(640px) rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .leaf { animation: none; } }
+
+  /* Games */
+  section { padding: 80px 0; }
+  .section-head { text-align: center; margin-bottom: 48px; }
+  .section-head h2 { font-size: clamp(32px, 5vw, 46px); }
+  .section-head p { color: var(--ink-soft); margin: 10px 0 0; }
+  .game { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 28px; padding: 32px; margin-bottom: 40px; box-shadow: 0 20px 40px -24px rgba(90, 40, 10, .35); }
+  .game.flip .media { order: 2; }
+  .media { position: relative; border-radius: 20px; overflow: hidden; aspect-ratio: 4 / 3; background: #111; }
+  .media img { width: 100%; height: 100%; object-fit: cover; }
+  .media .tag { position: absolute; left: 14px; top: 14px; }
+  .tag { display: inline-block; padding: 5px 12px; border-radius: 999px; font-size: 13px; font-weight: 800; letter-spacing: .03em; text-transform: uppercase; }
+  .tag-soon { background: var(--taxi); color: #2b1a00; }
+  .tag-dev { background: var(--sprout); color: #fff; }
+  .game-title { display: flex; align-items: center; gap: 14px; margin: 12px 0 10px; }
+  .game-title img { width: 56px; height: 56px; border-radius: 14px; }
+  .game h3 { font-size: 38px; }
+  .game .pitch { font-size: 19px; color: var(--ink-soft); margin: 0 0 18px; }
+  .features { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 10px; }
+  .features li { display: flex; gap: 12px; align-items: flex-start; }
+  .features .dot { flex: none; width: 28px; height: 28px; border-radius: 9px; display: grid; place-items: center; font-size: 15px; }
+  .ff .dot { background: #fff1c2; }
+  .si .dot { background: var(--sprout-soft); }
+  .strip { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+  .strip img { border-radius: 12px; aspect-ratio: 16/10; object-fit: cover; }
+  .status { font-size: 15px; color: var(--ink-soft); }
+
+  /* Sprout illustration */
+  .garden { width: 100%; height: 100%; }
+
+  /* About */
+  .about { background: var(--bg-alt); }
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .pillar { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 24px; }
+  .pillar .ico { font-size: 28px; }
+  .pillar h3 { font-size: 22px; margin: 10px 0 6px; }
+  .pillar p { margin: 0; color: var(--ink-soft); }
+
+  /* Contact */
+  .contact { text-align: center; }
+  .contact p { color: var(--ink-soft); max-width: 560px; margin: 12px auto 28px; }
+  footer { border-top: 1px solid var(--line); padding: 28px 0; color: var(--ink-soft); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+  @media (max-width: 860px) {
+    .game, .game.flip { grid-template-columns: 1fr; padding: 20px; gap: 24px; }
+    .game.flip .media { order: 0; }
+    .pillars { grid-template-columns: 1fr; }
+    nav ul { gap: 14px; font-size: 15px; }
+    nav ul li.hide-sm { display: none; }
+    section { padding: 56px 0; }
+    .hero { padding: 64px 0 72px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 4C18 18 12 30 16 44c3 9 10 14 16 16 6-2 13-7 16-16C52 30 46 18 32 4z" fill="#e0662f"/><path d="M32 14v46M32 30l-9-7M32 40l10-8" stroke="#7a2e12" stroke-width="3" stroke-linecap="round" fill="none"/></svg>
+      Autumnio
+    </a>
+    <ul>
+      <li><a href="#games">Games</a></li>
+      <li class="hide-sm"><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="eyebrow">Indie Roblox studio</span>
+    <h1>Small games, <span>big fun.</span></h1>
+    <p>Autumnio Games makes original Roblox games you can jump into in seconds and keep coming back to.</p>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="#games">See our games</a>
+      <a class="btn btn-ghost" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</header>
+
+<main>
+<section id="games">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Our games</h2>
+      <p>Built from scratch, with original art, names and code.</p>
+    </div>
+
+    <article class="game ff">
+      <div class="media">
+        <img src="img/downtown-stunt-park-night.jpg" alt="Neon stunt park at night in Fare Frenzy, with the Swirl Loop, Blaze Hoop and Split Ramp">
+        <span class="tag tag-soon">Coming soon to Roblox</span>
+      </div>
+      <div>
+        <div class="game-title">
+          <img src="img/fare-frenzy-icon.png" alt="Fare Frenzy icon">
+          <h3>Fare Frenzy</h3>
+        </div>
+        <p class="pitch">An arcade taxi rush. Grab fares, race the clock, and pull off stunts for tips in a city full of traffic.</p>
+        <ul class="features">
+          <li><span class="dot">🚕</span><span>Stop in a customer's ring, follow the arrow, and drop them off before their timer runs out.</span></li>
+          <li><span class="dot">⏱️</span><span>Speedy drop-offs add time to your shift clock, so a great run keeps going.</span></li>
+          <li><span class="dot">🌀</span><span>Near misses, big air and drifts earn tips, and stunts chained together build a combo up to x10.</span></li>
+          <li><span class="dot">🏆</span><span>Finish your shift with a grade from S to E and chase your best score.</span></li>
+        </ul>
+        <div class="strip">
+          <img src="img/downtown-gameplay-hud-day.jpg" alt="Taxi driving toward a customer in Fare Frenzy">
+          <img src="img/downtown-taxi-upside-down-loop.jpg" alt="Taxi upside down in the Swirl Loop">
+        </div>
+        <p class="status">In private testing now. Public release coming soon.</p>
+      </div>
+    </article>
+
+    <article class="game si flip">
+      <div class="media" style="background:#bfe6f5">
+        <svg class="garden" viewBox="0 0 400 300" role="img" aria-label="Illustration of a small island garden with sprouting crops">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd8f0"/><stop offset="1" stop-color="#e6f7fb"/></linearGradient>
+          </defs>
+          <rect width="400" height="300" fill="url(#sky)"/>
+          <circle cx="330" cy="60" r="28" fill="#ffd56b"/>
+          <ellipse cx="200" cy="270" rx="260" ry="40" fill="#5bb4d6"/>
+          <ellipse cx="200" cy="230" rx="180" ry="60" fill="#f3dca4"/>
+          <ellipse cx="200" cy="220" rx="160" ry="50" fill="#7cc46a"/>
+          <g fill="#8a5a36">
+            <rect x="95" y="200" width="60" height="30" rx="6"/>
+            <rect x="170" y="200" width="60" height="30" rx="6"/>
+            <rect x="245" y="200" width="60" height="30" rx="6"/>
+          </g>
+          <g stroke="#3f8a3d" stroke-width="4" stroke-linecap="round" fill="#5cbf4e">
+            <path d="M125 200v-22" fill="none"/><ellipse cx="117" cy="180" rx="9" ry="5"/><ellipse cx="133" cy="176" rx="9" ry="5"/>
+            <path d="M200 200v-34" fill="none"/><ellipse cx="190" cy="172" rx="11" ry="6"/><ellipse cx="210" cy="166" rx="11" ry="6"/>
+            <path d="M275 200v-18" fill="none"/><ellipse cx="268" cy="184" rx="8" ry="5"/><ellipse cx="282" cy="181" rx="8" ry="5"/>
+          </g>
+          <circle cx="200" cy="158" r="10" fill="#ffcc33" stroke="#e0a000" stroke-width="2"/>
+          <g fill="#fff6a8"><circle cx="186" cy="146" r="3"/><circle cx="216" cy="148" r="2.5"/><circle cx="204" cy="138" r="2"/></g>
+          <g><rect x="320" y="160" width="10" height="50" fill="#8a5a36"/><circle cx="325" cy="150" r="26" fill="#4fa35b"/><circle cx="315" cy="148" r="5" fill="#ff7a59"/><circle cx="334" cy="158" r="5" fill="#ff7a59"/></g>
+          <g><rect x="50" y="170" width="44" height="34" fill="#e07b4f"/><path d="M44 172l28-20 28 20z" fill="#b8461a"/><rect x="64" y="186" width="14" height="18" fill="#7a2e12"/></g>
+        </svg>
+        <span class="tag tag-dev">In development</span>
+      </div>
+      <div>
+        <div class="game-title"><h3>Sprout Isle</h3></div>
+        <p class="pitch">A cozy island garden. Plant, water and harvest crops that grow in real time, even while you're away.</p>
+        <ul class="features">
+          <li><span class="dot">🌱</span><span>Tap soil to plant, water to grow twice as fast, and harvest when your crop sparkles.</span></li>
+          <li><span class="dot">✨</span><span>Chase rare Golden and Rainbow harvests worth many times the usual price.</span></li>
+          <li><span class="dot">🧺</span><span>Sell at the Market Stall, restock at the Seed Shed, and grow your garden plot.</span></li>
+          <li><span class="dot">🌧️</span><span>Rain showers, a daily Hot Crop and a daily gift streak give you a reason to come back.</span></li>
+        </ul>
+        <p class="status">Early prototype. Follow along for updates.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>How we make games</h2>
+      <p>A tiny studio with a simple goal: one game players love to come back to.</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar"><div class="ico">⚡</div><h3>Fun in seconds</h3><p>No long menus. You're playing within moments of joining.</p></div>
+      <div class="pillar"><div class="ico">🎨</div><h3>100% original</h3><p>Our own names, art and code. Nothing copied from other games or brands.</p></div>
+      <div class="pillar"><div class="ico">🛡️</div><h3>Fair and kid-safe</h3><p>We follow Roblox's rules, keep purchases honest, and never use tricks to push spending.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <h2 style="font-size:clamp(30px,5vw,42px)">Say hello</h2>
+    <p>Questions, feedback or creator collabs? We'd love to hear from you. Find us on Roblox as <strong>autumniogames</strong>.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Autumnio Games</span>
+    <span>Not affiliated with Roblox Corporation.</span>
+  </div>
+</footer>
+
+<script>
+  // A few falling autumn leaves in the hero.
+  (function () {
+    var hero = document.querySelector('.hero');
+    var colors = ['#e0662f', '#f2a93b', '#b8461a', '#d9822b'];
+    for (var i = 0; i < 9; i++) {
+      var s = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      s.setAttribute('viewBox', '0 0 64 64');
+      s.setAttribute('class', 'leaf');
+      s.setAttribute('aria-hidden', 'true');
+      var size = 18 + Math.random() * 18;
+      s.style.width = s.style.height = size + 'px';
+      s.style.left = (Math.random() * 100) + '%';
+      s.style.top = '-40px';
+      s.style.animationDuration = (9 + Math.random() * 8) + 's';
+      s.style.animationDelay = (-Math.random() * 14) + 's';
+      s.innerHTML = '<path d="M32 4C18 18 12 30 16 44c3 9 10 14 16 16 6-2 13-7 16-16C52 30 46 18 32 4z" fill="' + colors[i % 4] + '"/>';
+      hero.appendChild(s);
+    }
+  })();
+</script>
+</body>
+</html>
